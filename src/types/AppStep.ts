@@ -7,7 +7,7 @@ export const enum AppStep {
 }
 
 export const appStepOrder = [AppStep.Upload, AppStep.FrameSelect, AppStep.Detection, AppStep.Processing, AppStep.Results]
-export const AppStepIndexMap = Object.fromEntries(
+const AppStepIndexMap = Object.fromEntries(
   appStepOrder.map((step, index) => [step, index])
 );
 

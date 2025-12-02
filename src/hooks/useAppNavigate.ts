@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAppStore } from '../stores/useAppStore'
-import { APP_STEP_COUNT, AppStepIndexMap, appStepOrder, getStepByIndex, getStepIndex, type AppStep } from '../types/AppStep'
+import { APP_STEP_COUNT, appStepOrder, getStepByIndex, getStepIndex, type AppStep } from '../types/AppStep'
 
 export function useAppNavigate() {
   const navigate = useNavigate()
@@ -10,7 +10,7 @@ export function useAppNavigate() {
     setCurrentStep(step)
 
     if (getStepIndex(currentStep) > getStepIndex(step)) {
-      for (let index = getStepIndex(step) + 1; index < AppStepIndexMap.length; index++) {
+      for (let index = getStepIndex(step) + 1; index < APP_STEP_COUNT; index++) {
         const element = getStepByIndex(index)
         clearStepData(element)
       }
@@ -25,14 +25,14 @@ export function useAppNavigate() {
   }
 
   const goNext = () => {
-    const newIndex = AppStepIndexMap[currentStep] + 1
+    const newIndex = getStepIndex(currentStep) + 1
     if (newIndex < APP_STEP_COUNT) {
       goToStep(appStepOrder[newIndex])
     }
   }
 
   const goBack = () => {
-    const newIndex = AppStepIndexMap[currentStep] - 1
+    const newIndex = getStepIndex(currentStep) - 1
     if (newIndex >= 0) {
       goToStep(appStepOrder[newIndex])
     }
