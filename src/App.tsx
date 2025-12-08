@@ -10,7 +10,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import ProcessingPage from './pages/ProcessingPage'
 import ResultPage from './pages/ResultPage'
 import VideoUploaderPage from './pages/VideoUploaderPage'
-import mainTheme from './theme'
+import mainTheme from './styles/theme'
 
 function App() {
   return (
