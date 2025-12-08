@@ -16,6 +16,7 @@ function DetectionPage() {
   const [canvasBoxes, setCanvasBoxes] = useState<CanvasBox[]>([])
 
   const [error, setError] = useState<string | null>(null)
+  const [noSuchElementsError, setNoSuchElementsError] = useState<boolean>(false)
   const [isLoading, setLoading] = useState(false)
 
   const [selectedObject, setSelectedObject] = useState<DetectObjectResponse | null>(null);
@@ -24,7 +25,7 @@ function DetectionPage() {
 
   const [isReady, setIsReady] = useState(false);
 
-  const { goNext } = useAppNavigate()
+  const { goNext, goBack } = useAppNavigate()
 
   // const [pointClickSelected, setPointClickSelected] = useState<string | null>(null);
   // const [point1, setPoint1] = useState<Point | null>(null);
@@ -71,27 +72,32 @@ function DetectionPage() {
 
   useEffect(() => {
     if (detectedObjects) {
-      detectedObjects.forEach((x, index) => {
-        x.id = index + 1
-        x.title = `ID: ${x.id}, ${x.obj_type}`
-      })
+      if (detectedObjects.length === 0) {
+        setNoSuchElementsError(true)
+      }
+      else {
+        detectedObjects.forEach((x, index) => {
+          x.id = index + 1
+          x.title = `ID: ${x.id}, ${x.obj_type}`
+        })
 
-      const array: CanvasBox[] = detectedObjects.map((x) => {
-        const t: CanvasBox = {
-          id: x.id.toString(),
-          title: x.title,
-          x: x.x1,
-          y: x.y1,
-          width: x.x2 - x.x1,
-          height: x.y2 - x.y1
-        }
+        const array: CanvasBox[] = detectedObjects.map((x) => {
+          const t: CanvasBox = {
+            id: x.id.toString(),
+            title: x.title,
+            x: x.x1,
+            y: x.y1,
+            width: x.x2 - x.x1,
+            height: x.y2 - x.y1
+          }
 
-        return t
-      })
+          return t
+        })
 
-      setCanvasBoxes(array)
+        setCanvasBoxes(array)
 
-      console.log('set canvasBoxes, ', array);
+        console.log('set canvasBoxes, ', array);
+      }
     }
   }, [detectedObjects]);
 
@@ -195,6 +201,18 @@ function DetectionPage() {
             }
 
             {detectedObjects && !selectedObject && <Typography variant="body1" >Select an object (click)</Typography>}
+
+
+            {error && <>
+              <Alert severity="error">{error}</Alert>
+              <Button variant="contained" onClick={runDetection}>Try again</Button>
+            </>}
+
+
+            {noSuchElementsError && <>
+              <Alert severity="error">No objects were found in this frame. Please try another frame. Or upload another video in which the object is clearly visible. (By the way, the application works better with standard objects: people, cars, bicycles, dogs, etc.)</Alert>
+              <Button variant="contained" onClick={goBack}>Select another frame</Button>
+            </>}
           </Box>
 
 
@@ -264,10 +282,7 @@ function DetectionPage() {
             </Grid>
           } */}
 
-          {error && <>
-            <Alert severity="error">{error}</Alert>
-            <Button variant="contained" onClick={runDetection}>Try again</Button>
-          </>}
+
         </>
       ) : (
         <ErrorMessage errorMessage="The frame is empty" />
