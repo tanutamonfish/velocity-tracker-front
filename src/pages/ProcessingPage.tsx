@@ -119,20 +119,25 @@ function ProcessingPage() {
   };
 
   const processResult = (data: DataResponse) => {
-    if (data !== null && jobPostResponse !== null) {
-      const dataForHistory: StoredResultForHistory = {
-        data: data,
-        id: jobPostResponse.id,
-        created_at: jobPostResponse.current_time
+    if (jobPostResponse !== null) {
+      if (data === null) {
+        setIsSuccessed(false)
+        setError('Server error. Try again or upload another file please!')
+      } else {
+        const dataForHistory: StoredResultForHistory = {
+          data: data,
+          id: jobPostResponse.id,
+          created_at: jobPostResponse.current_time
+        }
+
+        add(dataForHistory)
+
+        setIsSuccessed(true);
+
+        // temp. Added autonavigating.
+        //TODO: remove unused click() and button
+        handleNextClick()
       }
-
-      add(dataForHistory)
-
-      setIsSuccessed(true);
-
-      // temp. Added autonavigating.
-      //TODO: remove unused click() and button
-      handleNextClick()
     }
   }
 
