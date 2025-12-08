@@ -12,7 +12,7 @@ function NavigationBar() {
           <NavBarLinkButton to="/">Tracker</NavBarLinkButton>
         </Typography>
 
-        <Typography sx={{ flexGrow: 1 }}>
+        <Typography sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }} >
           <NavBarLinkButton to="/">Веб-сервис для анализа поступательного механического движения на основе видеоматериала</NavBarLinkButton>
         </Typography>
 

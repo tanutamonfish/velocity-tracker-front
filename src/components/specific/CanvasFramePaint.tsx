@@ -6,15 +6,6 @@ export interface Point {
   y: number;
 }
 
-// interface RectProps {
-//   x: number
-//   y: number
-//   w: number
-//   h: number
-//   color: string
-//   title?: string
-// }
-
 export interface CanvasFramePaintHandle {
   drawLine: (point1: Point, point2: Point) => void;
   drawRect: (x: number, y: number, w: number, h: number, color: string, title?: string) => void;

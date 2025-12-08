@@ -166,12 +166,9 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
-        width: '100%',
-        maxWidth: '100vw',
         backgroundColor: '#ffffff',
         borderRadius: 2,
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        p: 2
       }}
     >
       <Plot
@@ -251,7 +248,6 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
             '& .MuiTab-root': {
               fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
               py: { xs: 1, sm: 1.5, md: 2 },
-              minWidth: { xs: 80, sm: 100, md: 120 }
             }
           }}
         >
@@ -268,7 +264,7 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
 
       {/* Position */}
       <ChartTabPanel value={mainTabValue} index={0}>
-        <Box sx={{ width: '100%', textAlign: 'center' }}>
+        <Box sx={{ textAlign: 'center' }}>
           <Typography 
             variant="h4" 
             gutterBottom 
@@ -287,9 +283,7 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
               borderBottom: 1, 
               borderColor: 'divider', 
               mb: 4,
-              width: '100%',
               maxWidth: '800px',
-              mx: 'auto',
               backgroundColor: '#ffffff',
               borderRadius: 1
             }}
@@ -341,9 +335,7 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
               borderBottom: 1, 
               borderColor: 'divider', 
               mb: 4,
-              width: '100%',
               maxWidth: '800px',
-              mx: 'auto',
               backgroundColor: '#ffffff',
               borderRadius: 1
             }}
@@ -395,9 +387,7 @@ const ChartCollection: React.FC<Props> = ({ data }) => {
               borderBottom: 1, 
               borderColor: 'divider', 
               mb: 4,
-              width: '100%',
               maxWidth: '800px',
-              mx: 'auto',
               backgroundColor: '#ffffff',
               borderRadius: 1
             }}

@@ -176,6 +176,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
               onMouseEnter={() => handleBoxMouseEnter(box.id)}
               onMouseLeave={handleBoxMouseLeave}
               onClick={() => handleBoxClick(box.id)}
+              onTouchEnd={() => handleBoxClick(box.id)}
             >
               <CardContent
                 sx={{
@@ -233,6 +234,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
         >
           <button
             onClick={() => panzoomRef.current?.smoothZoom(0, 0, 1.2)}
+            onTouchEnd={() => panzoomRef.current?.smoothZoom(0, 0, 1.2)}
             style={{
               border: 'none',
               background: 'rgba(255, 255, 255, 0.9)',
@@ -246,6 +248,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
           </button>
           <button
             onClick={() => panzoomRef.current?.smoothZoom(0, 0, 0.8)}
+            onTouchEnd={() => panzoomRef.current?.smoothZoom(0, 0, 0.8)}
             style={{
               border: 'none',
               background: 'rgba(255, 255, 255, 0.9)',
@@ -259,6 +262,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
         </Box>
         { <button
           onClick={iniZoom}
+          onTouchEnd={iniZoom}
           style={{
             border: 'none',
             background: 'rgba(255, 255, 255, 0.9)',
