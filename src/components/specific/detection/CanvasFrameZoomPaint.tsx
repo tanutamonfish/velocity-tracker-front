@@ -125,7 +125,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
         overflow: 'hidden',
         border: '1px solid rgba(0, 0, 0, 0.2)',
         borderRadius: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
       }}
     >
       {/* Canvas container */}
