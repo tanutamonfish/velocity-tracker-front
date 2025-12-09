@@ -1,6 +1,7 @@
-import { Alert, Box, Button, LinearProgress, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../components/common/ErrorMessage";
+import { LoadingBox } from "../components/common/LoadingBox";
 import { ProgressStepper } from "../components/common/ProgressStepper";
 import { CanvasWrapper } from "../components/specific/detection/CanvasFrameZoomPaint";
 import type { CanvasBox } from "../components/specific/detection/types";
@@ -168,7 +169,7 @@ function DetectionPage() {
             <Button variant="contained" onClick={runDetection}>Send to server for object detecttion</Button>
           </Box>}
 
-          {isLoading && <LinearProgress />}
+          <LoadingBox loading={isLoading} />
 
           <Box sx={{ textAlign: "center" }}>
             {selectedObject &&

@@ -1,5 +1,6 @@
-import { Alert, Box, Button, LinearProgress, Typography } from "@mui/material";
+import { Alert, Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { LoadingBox } from "../components/common/LoadingBox";
 import { ProgressStepper } from "../components/common/ProgressStepper";
 import { useAppNavigate } from "../hooks/useAppNavigate";
 import { useLocalLastResults, type StoredResultForHistory } from "../hooks/useLocalLastResults";
@@ -149,15 +150,19 @@ function ProcessingPage() {
   return (
     <>
       <ProgressStepper />
-      <Typography variant="body1" >Now everything is ready to send the video to the server</Typography>
-      {!isLoading && !isSuccessed && <Button
-        onClick={send}
-        variant="contained"
-      >
-        Send
-      </Button>}
 
-      {isLoading && <LinearProgress />}
+      {!isLoading && !isSuccessed &&
+        <Box>
+          <Typography variant="body1" >Now everything is ready to send the video to the server</Typography>
+          <Button
+            onClick={send}
+            variant="contained"
+          >
+            Send
+          </Button>
+        </Box>}
+
+      <LoadingBox loading={isLoading} />
 
       {jobPostResponse && <Alert severity="success">The task was created</Alert>} <br />
       {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status}</Alert>} <br />
