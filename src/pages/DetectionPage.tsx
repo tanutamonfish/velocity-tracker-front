@@ -164,14 +164,14 @@ function DetectionPage() {
       {selectedFrameData ? (
         <>
 
-          {!isLoading && !detectedObjects && <Box sx={{ textAlign: "center" }}>
+          {!isLoading && !detectedObjects && <Box>
             <Typography variant="body1" >Selected timestamp: {selectedFrameData.selectedFrameTime?.toFixed(2)}s.</Typography>
             <Button variant="contained" onClick={runDetection}>Send to server for object detecttion</Button>
           </Box>}
 
           <LoadingBox loading={isLoading} />
 
-          <Box sx={{ textAlign: "center" }}>
+          <Box>
             {selectedObject &&
 
               <>

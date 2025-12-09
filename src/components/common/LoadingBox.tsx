@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { ColumnBox } from "./ColumnBox";
 import { LoadingBar } from "./LoadingBar";
 
 interface LoadingBoxProps {
@@ -10,13 +11,11 @@ export const LoadingBox: React.FC<LoadingBoxProps> = ({ loading, message = "Wait
 
 
     if (loading) return (
-        <>
-            <Box sx={{ width: '100%' }}>
-                <Typography align="center" variant="body1">{message}</Typography>
-            </Box>
-            
+        <ColumnBox>
+            <Typography align="center" variant="body1" sx={{ mb: 1 }}>{message}</Typography>
+
             <LoadingBar />
-        </>
+        </ColumnBox>
     );
     else return null
 }

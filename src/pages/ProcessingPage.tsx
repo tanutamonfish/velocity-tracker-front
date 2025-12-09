@@ -1,5 +1,6 @@
-import { Alert, Box, Button, Typography } from "@mui/material";
+import { Alert, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { ColumnBox } from "../components/common/ColumnBox";
 import { LoadingBox } from "../components/common/LoadingBox";
 import { ProgressStepper } from "../components/common/ProgressStepper";
 import { useAppNavigate } from "../hooks/useAppNavigate";
@@ -152,7 +153,7 @@ function ProcessingPage() {
       <ProgressStepper />
 
       {!isLoading && !isSuccessed &&
-        <Box>
+        <ColumnBox>
           <Typography variant="body1" >Now everything is ready to send the video to the server</Typography>
           <Button
             onClick={send}
@@ -160,27 +161,25 @@ function ProcessingPage() {
           >
             Send
           </Button>
-        </Box>}
+        </ColumnBox>}
 
       <LoadingBox loading={isLoading} />
 
       {jobPostResponse && <Alert severity="success">The task was created</Alert>} <br />
       {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status}</Alert>} <br />
-      {isSuccessed && <>
+      {isSuccessed && <ColumnBox>
 
-        <Alert severity="success">The task was done</Alert> <br />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography variant="body1" component="span">
-            <Button
-              onClick={handleNextClick}
-              variant="contained"
-              sx={{ mt: 2 }}
-            >
-              Result
-            </Button>
-          </Typography>
-        </Box>
-      </>}
+        <Alert severity="success">The task was done</Alert>
+        <Typography variant="body1" component="span">
+          <Button
+            onClick={handleNextClick}
+            variant="contained"
+            sx={{ mt: 2 }}
+          >
+            Result
+          </Button>
+        </Typography>
+      </ColumnBox>}
 
       {error && <>
         <Alert severity="error">{error}</Alert>
