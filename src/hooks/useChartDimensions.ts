@@ -11,11 +11,11 @@ export const useChartDimensions = (): ChartDimensions => {
 
     return useMemo(() => {
         if (isMobile) {
-            return { width: calculateSize(1), height: 400 };
+            return { width: calculateSize(0.9), height: 400 };
         } else if (isTablet) {
-            return { width: calculateSize(1), height: 500 };
+            return { width: calculateSize(0.8), height: 500 };
         } else {
-            return { width: calculateSize(1), height: 600 };
+            return { width: calculateSize(0.7), height: 600 };
         }
     }, [isMobile, isTablet]);
 };
