@@ -9,7 +9,7 @@ import type { DataResponse } from "../types/DataResponse";
 import type { DetectedObject, JobsIdGetResponse, JobsPostResponse } from "../types/JobsApiTypes";
 
 function ProcessingPage() {
-  const POLLING_INTERVAL = 1000;
+  const POLLING_INTERVAL = 2000;
 
   const { uploadData, selectedFrameData, detectionData } = useAppStore()
   const [error, setError] = useState<string | null>(null)
