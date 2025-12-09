@@ -1,6 +1,5 @@
 import { Alert, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ColumnBox } from "../components/common/ColumnBox";
 import { LoadingBox } from "../components/common/LoadingBox";
 import { ProgressStepper } from "../components/common/ProgressStepper";
 import { useAppNavigate } from "../hooks/useAppNavigate";
@@ -19,6 +18,11 @@ function ProcessingPage() {
   const [jobIdGetResponse, setJobIdGetResponse] = useState<JobsIdGetResponse | null>(null)
   const [isSuccessed, setIsSuccessed] = useState(false)
   const [isLoading, setLoading] = useState(false)
+
+  const [pollInSeconds, setPollInSeconds] = useState(0)
+  const incrementPollInSeconds = () => {
+    setPollInSeconds(prevCount => prevCount + POLLING_INTERVAL / 1000)
+  };
 
   const { goToStep } = useAppNavigate()
 
@@ -104,6 +108,8 @@ function ProcessingPage() {
       const data: JobsIdGetResponse = await response.json();
       console.log('data: ', data.status, JSON.stringify(data, null, 3));
 
+      incrementPollInSeconds()
+
       setJobIdGetResponse(data);
 
       if (data.status === 'done') {
@@ -153,7 +159,7 @@ function ProcessingPage() {
       <ProgressStepper />
 
       {!isLoading && !isSuccessed &&
-        <ColumnBox>
+        <>
           <Typography variant="body1" >Now everything is ready to send the video to the server</Typography>
           <Button
             onClick={send}
@@ -161,13 +167,13 @@ function ProcessingPage() {
           >
             Send
           </Button>
-        </ColumnBox>}
+        </>}
 
       <LoadingBox loading={isLoading} />
 
       {jobPostResponse && <Alert severity="success">The task was created</Alert>} <br />
-      {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status}</Alert>} <br />
-      {isSuccessed && <ColumnBox>
+      {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status} ({pollInSeconds}s)</Alert>} <br />
+      {isSuccessed && <>
 
         <Alert severity="success">The task was done</Alert>
         <Typography variant="body1" component="span">
@@ -179,7 +185,7 @@ function ProcessingPage() {
             Result
           </Button>
         </Typography>
-      </ColumnBox>}
+      </>}
 
       {error && <>
         <Alert severity="error">{error}</Alert>
