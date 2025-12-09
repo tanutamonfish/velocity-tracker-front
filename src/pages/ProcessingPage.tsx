@@ -10,7 +10,8 @@ import type { DataResponse } from "../types/DataResponse";
 import type { DetectedObject, JobsIdGetResponse, JobsPostResponse } from "../types/JobsApiTypes";
 
 function ProcessingPage() {
-  const POLLING_INTERVAL = 2000;
+  const POLLING_INTERVAL = 2000
+  const POLLING_INTERVAL_IN_SECONDS = POLLING_INTERVAL / 1000
 
   const { uploadData, selectedFrameData, detectionData } = useAppStore()
   const [error, setError] = useState<string | null>(null)
@@ -19,16 +20,14 @@ function ProcessingPage() {
   const [isSuccessed, setIsSuccessed] = useState(false)
   const [isLoading, setLoading] = useState(false)
 
-  const [pollInSeconds, setPollInSeconds] = useState(0)
-  const incrementPollInSeconds = () => {
-    setPollInSeconds(prevCount => prevCount + POLLING_INTERVAL / 1000)
+  const [pollInSecondsTime, setPollInSecondsTime] = useState(0)
+  const increasePollInSecondsTime = () => {
+    setPollInSecondsTime(prevCount => prevCount + POLLING_INTERVAL_IN_SECONDS)
   };
 
   const { goToStep } = useAppNavigate()
 
   const { add } = useLocalLastResults()
-
-  // useEffect(() => { send() }, [])
 
   const send = async () => {
     setLoading(true)
@@ -39,6 +38,7 @@ function ProcessingPage() {
         const formData = new FormData();
         formData.append('video_file', uploadData.file, uploadData.file.name);
 
+        // redo fetching code if the server API is finally made under contract)
         const r = detectionData.response
         const detectedObjectForApi: DetectedObject = {
           id: r.id.toString(),
@@ -108,7 +108,7 @@ function ProcessingPage() {
       const data: JobsIdGetResponse = await response.json();
       console.log('data: ', data.status, JSON.stringify(data, null, 3));
 
-      incrementPollInSeconds()
+      increasePollInSecondsTime()
 
       setJobIdGetResponse(data);
 
@@ -120,7 +120,6 @@ function ProcessingPage() {
       }
     } catch (error) {
       console.error('ERROR: ', error);
-      // setTimeout(pollServer, POLLING_INTERVAL);
     }
 
     return null
@@ -172,7 +171,7 @@ function ProcessingPage() {
       <LoadingBox loading={isLoading} />
 
       {jobPostResponse && <Alert severity="success">The task was created</Alert>} <br />
-      {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status} ({pollInSeconds}s)</Alert>} <br />
+      {jobIdGetResponse && <Alert severity="info">status: {jobIdGetResponse.status} ({pollInSecondsTime}s)</Alert>} <br />
       {isSuccessed && <>
 
         <Alert severity="success">The task was done</Alert>
