@@ -54,10 +54,8 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
   const iniZoom = () => {
     if (containerRef.current) {
       panzoomRef.current = panzoom(containerRef.current, {
-        maxZoom: 4,
-        minZoom: 0.5,
-        bounds: true,
-        boundsPadding: 0.1,
+        maxZoom: 40,
+        minZoom: 0.05,
       });
 
       return () => {
@@ -137,6 +135,7 @@ export const CanvasWrapper: React.FC<CanvasWrapperProps> = ({
           height: '100%',
           cursor: 'grab',
           backgroundColor: 'transparent',
+          touchAction: 'none'
         }}
       >
         <canvas

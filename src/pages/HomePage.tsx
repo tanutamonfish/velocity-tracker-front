@@ -5,7 +5,7 @@ function HomePage() {
   //TODO: add information about the application
   return (
     <>
-      <Box width={600}>
+      <Box>
         <Typography>Приложение предназначено для отслеживания изменения координат, скорости и ускорения объектов в видеоматериале.</Typography>
       </Box>
       <Button

@@ -3,76 +3,61 @@ import {
   Button,
   Divider,
   Step,
-  StepConnector,
-  stepConnectorClasses,
   StepLabel,
   Stepper,
   Typography,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useAppNavigate } from '../../hooks/useAppNavigate';
 import { useAppStore } from '../../stores/useAppStore';
 import { APP_STEP_COUNT, AppStep, appStepOrder, getStepIndex } from '../../types/AppStep';
 
 const stepLabels: Record<AppStep, string> = {
-  [AppStep.Upload]: 'File Upload',
-  [AppStep.FrameSelect]: 'Frame Selection',
-  [AppStep.Detection]: 'Detection',
-  [AppStep.Processing]: 'Processing',
+  [AppStep.Upload]: 'Upload',
+  [AppStep.FrameSelect]: 'Frames',
+  [AppStep.Detection]: 'Detect',
+  [AppStep.Processing]: 'Process',
   [AppStep.Results]: 'Results',
 };
 
-const Connector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[400],
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}));
-
 export const ProgressStepper: React.FC = () => {
-  const currentStep = useAppStore((state) => state.currentStep)
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const currentStep = useAppStore((state) => state.currentStep);
   const currentStepIndex = getStepIndex(currentStep);
+  const { goBack } = useAppNavigate();
 
   const isStepCompleted = (step: number) => step < currentStepIndex;
   const isStepClickable = (step: number) => isStepCompleted(step);
 
-  const { goBack } = useAppNavigate()
-
   const handleBackStepClick = (step: AppStep) => {
     if (isStepClickable(getStepIndex(step))) {
-      goBack()
+      goBack();
     }
   };
 
   return (
-    <Box sx={{ width: '100%', py: 3 }}>
-      <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Typography variant="body1" color="text.secondary" sx={{ m: 1 }}>
+    <Box sx={{ width: '100%', py: isMobile ? 2 : 3 }}>
+      <Box sx={{ textAlign: 'center', mt: isMobile ? 1 : 2 }}>
+        <Typography
+          variant={isMobile ? 'body2' : 'body1'}
+          color="text.secondary"
+          sx={{ m: 1 }}
+        >
           Progress: {Math.round(((currentStepIndex + 1) / APP_STEP_COUNT) * 100)}%
         </Typography>
       </Box>
 
       <Stepper
         activeStep={currentStepIndex}
-        connector={<Connector />}
         alternativeLabel
+        sx={{
+          '& .MuiStep-root': {
+            padding: isMobile ? '0 4px' : '0 8px',
+          },
+        }}
       >
         {appStepOrder.map((step, index) => (
           <Step key={step} completed={isStepCompleted(index)}>
@@ -80,16 +65,6 @@ export const ProgressStepper: React.FC = () => {
               onClick={() => handleBackStepClick(step)}
               sx={{
                 cursor: isStepClickable(index) ? 'pointer' : 'default',
-                '& .MuiStepLabel-label': {
-                  fontSize: '0.875rem',
-                  fontWeight: isStepCompleted(index) ? 600 : 400,
-                  color: step === currentStep ? 'primary.main' : 'text.primary',
-                },
-                '&:hover': {
-                  '& .MuiStepLabel-label': isStepClickable(index) ? {
-                    color: 'primary.main',
-                  } : {},
-                },
               }}
             >
               {stepLabels[step]}
@@ -98,11 +73,19 @@ export const ProgressStepper: React.FC = () => {
         ))}
       </Stepper>
 
-      {getStepIndex(currentStep) > 0 && <Box sx={{ textAlign: 'center', mt: 2 }}>
-        <Button variant='outlined' onClick={goBack} >Return to previous step</Button>
-      </Box>}
+      {currentStepIndex > 0 && (
+        <Box sx={{ textAlign: 'center', mt: isMobile ? 1.5 : 2 }}>
+          <Button
+            variant="outlined"
+            onClick={goBack}
+            size={isMobile ? 'small' : 'medium'}
+          >
+            Return to previous step
+          </Button>
+        </Box>
+      )}
 
-      <Divider />
+      <Divider sx={{ mt: isMobile ? 1: 3 }} />
     </Box>
   );
 };
