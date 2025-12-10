@@ -116,25 +116,25 @@ export const CHART_CATEGORIES: ChartCategory[] = [
     ],
   },
   {
-    label: 'E_',
-    title: 'F analysis',
+    label: 'E',
+    title: 'Energy analysis',
     plots: [
       {
-        title: 'F_x(t)',
-        yDataKey: 'F_x',
-        yLabel: 'F_x, Н',
+        title: 'E_kin(t)',
+        yDataKey: 'E_kin',
+        yLabel: 'E_kin, Дж',
         color: '#8c564b'
       },
       {
-        title: 'F_y(t)',
-        yDataKey: 'F_y',
-        yLabel: 'F_y, Н',
+        title: 'E_p(t)',
+        yDataKey: 'E_p',
+        yLabel: 'E_p, Дж',
         color: '#e377c2'
       },
       {
-        title: 'F(t)',
-        yDataKey: 'F',
-        yLabel: 'F, Н',
+        title: 'E',
+        yDataKey: 'E',
+        yLabel: 'E, Дж',
         color: '#7f7f7f'
       },
     ],
