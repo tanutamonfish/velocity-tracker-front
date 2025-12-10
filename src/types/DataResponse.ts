@@ -1,4 +1,6 @@
 export interface DataResponse {
+  time: number[];
+
   x: number[];
   y: number[];
   v_x: number[];
@@ -7,5 +9,18 @@ export interface DataResponse {
   a_x: number[];
   a_y: number[];
   a: number[];
-  time: number[];
+
+  p_x: number[];
+  p_y: number[];
+  p: number[];
+  F_x: number[];
+  F_y: number[];
+  F: number[];
+  E_kin: number[];
+  E_p: number[];
+  E: number[];
+
+  err_x: number[];
+  err_y: number[];
+  err_v: number[];
 }

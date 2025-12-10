@@ -3,6 +3,7 @@ import type { DataResponse } from "./DataResponse";
 export interface PlotConfig {
   title: string;
   yDataKey: keyof DataResponse;
+  yErrorDataKey: keyof DataResponse;
   yLabel: string;
   color: string;
 }

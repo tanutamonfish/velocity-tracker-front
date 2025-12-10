@@ -12,7 +12,7 @@ interface PlotlyChartProps {
   plotDimensions: { width: number; height: number };
 }
 
-export const PlotlyChart: React.FC<PlotlyChartProps> = ({
+export const PlotlyChartWithErrors: React.FC<PlotlyChartProps> = ({
   time,
   plotConfig,
   data,
@@ -46,15 +46,6 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({
             },
             name: plotConfig.title,
             hovertemplate: '<b>Time</b>: %{x:.2f}<br><b>Value</b>: %{y:.4f}<extra></extra>',
-
-            error_y: {
-              type: 'data',
-              array: data[plotConfig.yErrorDataKey],
-              visible: true,
-              color: '#000000',
-              thickness: 1,
-              width: 3
-            }
           },
         ]}
         layout={plotLayout}
