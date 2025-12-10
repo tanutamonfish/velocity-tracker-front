@@ -20,7 +20,7 @@ export const CHART_CATEGORIES: ChartCategory[] = [
     ],
   },
   {
-    label: 'Speed',
+    label: 'v',
     title: 'Speed analysis',
     plots: [
       {
@@ -44,7 +44,7 @@ export const CHART_CATEGORIES: ChartCategory[] = [
     ],
   },
   {
-    label: 'Acceleration',
+    label: 'a',
     title: 'Acceleration analysis',
     plots: [
       {
@@ -63,6 +63,78 @@ export const CHART_CATEGORIES: ChartCategory[] = [
         title: 'a(t)',
         yDataKey: 'a',
         yLabel: 'Acceleration magnitude, m/s^2',
+        color: '#7f7f7f'
+      },
+    ],
+  },
+  {
+    label: 'F',
+    title: 'F analysis',
+    plots: [
+      {
+        title: 'F_x(t)',
+        yDataKey: 'F_x',
+        yLabel: 'F_x, Н',
+        color: '#8c564b'
+      },
+      {
+        title: 'F_y(t)',
+        yDataKey: 'F_y',
+        yLabel: 'F_y, Н',
+        color: '#e377c2'
+      },
+      {
+        title: 'F(t)',
+        yDataKey: 'F',
+        yLabel: 'F, Н',
+        color: '#7f7f7f'
+      },
+    ],
+  },
+  {
+    label: 'p',
+    title: 'p analysis',
+    plots: [
+      {
+        title: 'p_x(t)',
+        yDataKey: 'p_x',
+        yLabel: 'p_x, кг*м/с',
+        color: '#8c564b'
+      },
+      {
+        title: 'p_y(t)',
+        yDataKey: 'p_y',
+        yLabel: 'p_y, кг*м/с',
+        color: '#e377c2'
+      },
+      {
+        title: 'p(t)',
+        yDataKey: 'p',
+        yLabel: 'p, кг*м/с',
+        color: '#7f7f7f'
+      },
+    ],
+  },
+  {
+    label: 'E_',
+    title: 'F analysis',
+    plots: [
+      {
+        title: 'F_x(t)',
+        yDataKey: 'F_x',
+        yLabel: 'F_x, Н',
+        color: '#8c564b'
+      },
+      {
+        title: 'F_y(t)',
+        yDataKey: 'F_y',
+        yLabel: 'F_y, Н',
+        color: '#e377c2'
+      },
+      {
+        title: 'F(t)',
+        yDataKey: 'F',
+        yLabel: 'F, Н',
         color: '#7f7f7f'
       },
     ],

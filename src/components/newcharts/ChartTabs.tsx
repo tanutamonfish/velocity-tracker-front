@@ -44,6 +44,7 @@ export const ChartTabs: React.FC<ChartTabsProps> = ({
         {labels.map((label, index) => (
           <Tab 
             key={`${label}-${index}`}
+            sx={{ textTransform: 'none' }}
             label={label}
             id={`${ariaLabel}-tab-${index}`}
             aria-controls={`${ariaLabel}-tabpanel-${index}`}
