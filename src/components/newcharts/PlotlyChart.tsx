@@ -47,14 +47,14 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({
             name: plotConfig.title,
             hovertemplate: '<b>Time</b>: %{x:.2f}<br><b>Value</b>: %{y:.4f}<extra></extra>',
 
-            error_y: {
+            error_y: plotConfig.yErrorDataKey ? {
               type: 'data',
               array: data[plotConfig.yErrorDataKey],
               visible: true,
               color: '#000000',
               thickness: 1,
               width: 3
-            }
+            } : undefined
           },
         ]}
         layout={plotLayout}
