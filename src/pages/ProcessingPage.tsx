@@ -48,7 +48,8 @@ function ProcessingPage() {
         const data = {
           'selected_frame_time': selectedFrameData.selectedFrameTime,
           'detect_object': detectedObjectForApi,
-          'pixel_size': detectionData.pixelSize
+          'pixel_size': detectionData.pixelSize,
+          'weight': detectionData.mass
         }
 
         const jsonStringForAPI = JSON.stringify(data, null, 3)
