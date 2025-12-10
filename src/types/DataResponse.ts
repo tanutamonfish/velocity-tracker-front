@@ -16,9 +16,8 @@ export interface DataResponse {
   F_x: number[];
   F_y: number[];
   F: number[];
-  E_kin: number[];
-  E_p: number[];
-  E: number[];
+  Ek: number[];
+  Ep: number[];
 
   err_x: number[];
   err_y: number[];
