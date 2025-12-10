@@ -23,6 +23,7 @@ function DetectionPage() {
   const [selectedObject, setSelectedObject] = useState<DetectObjectResponse | null>(null);
 
   const [diagonalInMetersInput, setDiagonalInMetersInput] = useState('0.0')
+  const [massInKilogramsInput, setMassInKilogramsInput] = useState('0.0')
 
   const [isReady, setIsReady] = useState(false);
 
@@ -130,6 +131,11 @@ function DetectionPage() {
     setDiagonalInMetersInput(val)
   }
 
+  const handleMassInKilogramsInput = (event: { target: { value: string; }; }) => {
+    const val = event.target.value
+    setMassInKilogramsInput(val)
+  }
+
   const handleContinue = async () => {
     if (selectedObject) {
       const diagonalInMeters = parseFloat(diagonalInMetersInput)
@@ -137,7 +143,12 @@ function DetectionPage() {
       const p2 = new Point(selectedObject.x2, selectedObject.y2)
       const pixelSize = calculatePixelSize(p1, p2, diagonalInMeters)
 
-      setDetectionData({ response: selectedObject, pixelSize });
+      // mass is not a required field now
+      const massInKilograms = parseFloat(massInKilogramsInput);
+      const valueIsInRangeMass = !isNaN(massInKilograms) && massInKilograms > 0.0;
+      if (!valueIsInRangeMass) setMassInKilogramsInput('0.0')
+
+      setDetectionData({ response: selectedObject, pixelSize, mass: massInKilograms });
       goNext()
     }
   };
@@ -145,9 +156,9 @@ function DetectionPage() {
   useEffect(() => {
     let isNowReady = diagonalInMetersInput !== null
     if (isNowReady) {
-      const num = parseFloat(diagonalInMetersInput);
-      const valueIsInRange = !isNaN(num) && num > 0.0;
-      isNowReady &&= valueIsInRange
+      const numDiagonal = parseFloat(diagonalInMetersInput);
+      const valueIsInRangeDiagonal = !isNaN(numDiagonal) && numDiagonal > 0.0;
+      isNowReady &&= valueIsInRangeDiagonal
     }
 
     isNowReady &&= (selectedObject !== null && !isLoading && detectedObjects !== null)
@@ -177,10 +188,23 @@ function DetectionPage() {
               <>
                 <Typography variant="body1" >Selected object: {selectedObject.title}s.</Typography>
                 <TextField
-                  label="Diagonal of the selected object in meters"
+                  label="The diagonal of the selected object in meters"
                   type="number"
                   value={diagonalInMetersInput}
                   onChange={handleDiagonalInMetersChange}
+                  inputProps={{
+                    min: 0,
+                    step: "any",
+                  }}
+                  sx={{ mt: 5 }}
+                  variant="outlined"
+                />
+
+                <TextField
+                  label="The mass of the selected object in kilograms (optional)"
+                  type="number"
+                  value={massInKilogramsInput}
+                  onChange={handleMassInKilogramsInput}
                   inputProps={{
                     min: 0,
                     step: "any",

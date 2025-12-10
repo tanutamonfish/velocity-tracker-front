@@ -14,7 +14,8 @@ export interface SelectedFrameData {
 
 export interface DetectionData {
   response: DetectObjectResponse;
-  pixelSize: number
+  pixelSize: number;
+  mass: number
 }
 
 export interface ProcessingData {
