@@ -21,10 +21,10 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({
   const plotLayout = getPlotlyLayout(plotDimensions, plotConfig);
 
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#ffffff',
         borderRadius: 2,
@@ -38,8 +38,8 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({
             y: data[plotConfig.yDataKey],
             type: 'scattergl',
             mode: 'lines',
-            line: { 
-              color: plotConfig.color, 
+            line: {
+              color: plotConfig.color,
               width: 3,
               shape: 'spline',
               smoothing: 1.3
@@ -57,6 +57,15 @@ export const PlotlyChart: React.FC<PlotlyChartProps> = ({
             } : undefined
           },
         ]}
+        config={{
+          toImageButtonOptions: {
+            format: 'png',
+            filename: plotConfig.title,
+            height: 600,
+            width: 800,
+            scale: 1,
+          },
+        }}
         layout={plotLayout}
         style={{
           width: '100%',
