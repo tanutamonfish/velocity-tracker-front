@@ -144,6 +144,7 @@ function DetectionPage() {
       const pixelSize = calculatePixelSize(p1, p2, diagonalInMeters)
 
       // mass is not a required field now
+      // we can set it to 0
       const massInKilograms = parseFloat(massInKilogramsInput);
       const valueIsInRangeMass = !isNaN(massInKilograms) && massInKilograms > 0.0;
       if (!valueIsInRangeMass) setMassInKilogramsInput('0.0')
@@ -188,7 +189,7 @@ function DetectionPage() {
               <>
                 <Typography variant="body1" >Selected object: {selectedObject.title}s.</Typography>
                 <TextField
-                  label="The diagonal of the selected object in meters"
+                  label="diag, m"
                   type="number"
                   value={diagonalInMetersInput}
                   onChange={handleDiagonalInMetersChange}
@@ -201,7 +202,7 @@ function DetectionPage() {
                 />
 
                 <TextField
-                  label="The mass of the selected object in kilograms (optional)"
+                  label="mass, kg"
                   type="number"
                   value={massInKilogramsInput}
                   onChange={handleMassInKilogramsInput}
